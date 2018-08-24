@@ -6,7 +6,9 @@
 : "${git_repo_base:=https://github.com/Nuand}"
 : "${bladerf_url:=$git_repo_base/bladeRF.git}"
 : "${grosmosdr_url:=$git_repo_base/gr-osmosdr.git}"
-: "${gqrx_url:=$git_repo_base/gqrx.git}"
+
+: "${gqrx_ver:=2.11.5}"
+: "${gqrx_url:=https://github.com/csete/gqrx/releases/download/v$gqrx_ver/gqrx-sdr-$gqrx_ver-src.tar.xz}"
 
 : "${build_dir:=/usr/src/deb}"
 : "${bladerf_src:=$build_dir/bladerf}"

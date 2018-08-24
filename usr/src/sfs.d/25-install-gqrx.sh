@@ -5,7 +5,11 @@ set -e
 
 mkdir -p "$build_dir"
 
-test -d "$gqrx_src" || git clone "$(dl_file "$gqrx_url")" "$gqrx_src"
+test -e "$gqrx_src/CMakeLists.txt" || {
+: "${gqrx_txz:=$(dl_file "$gqrx_url")}"
+  mkdir -p "$gqrx_src"
+  tar xfJ "$gqrx_txz" -C "$gqrx_src" --strip-components=1
+}
 
 apt-get install -y $deb_build_gqrx
 
@@ -14,7 +18,6 @@ apt-get install -y $deb_build_gqrx
 mkdir -p "$gqrx_src/build"
 cd "$gqrx_src/build"
 
-apply_patches "$gqrx_src" "gqrx"
 cmake ..
 make ${build_procs:+-j$build_procs}
 make install/strip DESTDIR="$DESTDIR"
